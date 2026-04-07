@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>30-Day Product Leader Plan</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --font-sans: 'DM Sans', system-ui, sans-serif;
+    --font-serif: 'DM Serif Display', Georgia, serif;
+    --color-bg: #faf9f7;
+    --color-surface: #ffffff;
+    --color-surface-2: #f3f1ee;
+    --color-border: rgba(0,0,0,0.09);
+    --color-border-md: rgba(0,0,0,0.15);
+    --color-text-primary: #1a1916;
+    --color-text-secondary: #6b6860;
+    --color-text-hint: #a09d97;
+    --radius-md: 8px;
+    --radius-lg: 14px;
+    --purple-50: #EEEDFE; --purple-200: #AFA9EC; --purple-400: #7F77DD; --purple-600: #534AB7; --purple-800: #3C3489;
+    --teal-50: #E1F5EE; --teal-200: #5DCAA5; --teal-600: #0F6E56; --teal-800: #085041;
+    --coral-50: #FAECE7; --coral-200: #F0997B; --coral-600: #993C1D; --coral-800: #712B13;
+    --green-50: #EAF3DE; --green-200: #97C459; --green-600: #3B6D11; --green-800: #27500A;
+    --amber-50: #FAEEDA; --amber-600: #854F0B; --amber-800: #633806;
+    --blue-50: #E6F1FB; --blue-600: #185FA5; --blue-800: #0C447C;
+    --pink-50: #FBEAF0; --pink-600: #993556;
+    --gray-50: #F1EFE8; --gray-600: #5F5E5A; --gray-800: #444441;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap');
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-bg);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    padding: 2rem 1rem 4rem;
+  }
+
+  .page-wrapper {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  .header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 0.5px solid var(--color-border-md);
+  }
+  .header-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-hint);
+    margin-bottom: 10px;
+  }
+  .header-title {
+    font-family: var(--font-serif);
+    font-size: 36px;
+    font-weight: 400;
+    color: var(--color-text-primary);
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+  .header-subtitle {
+    font-size: 15px;
+    color: var(--color-text-secondary);
+    max-width: 540px;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+  .stat {
+    background: var(--color-surface);
+    border: 0.5px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    text-align: center;
+  }
+  .stat-num { font-size: 22px; font-weight: 600; color: var(--color-text-primary); }
+  .stat-label { font-size: 11px; color: var(--color-text-hint); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  .progress-bar {
+    height: 4px;
+    background: var(--color-surface-2);
+    border-radius: 2px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--purple-400), var(--teal-200));
+    transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .phase-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .tab {
+    padding: 7px 16px;
+    border-radius: 20px;
+    border: 0.5px solid var(--color-border-md);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    background: var(--color-surface);
+    color: var(--color-text-secondary);
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .tab:hover:not(.active) { background: var(--color-surface-2); }
+  .tab.active { background: var(--purple-50); border-color: var(--purple-200); color: var(--purple-800); }
+
+  .phase-header {
+    padding: 1.25rem 1.5rem;
+    background: var(--color-surface);
+    border: 0.5px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    margin-bottom: 1rem;
+  }
+  .phase-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+  }
+  .phase-title { font-size: 18px; font-weight: 600; color: var(--color-text-primary); margin-bottom: 4px; }
+  .phase-subtitle { font-size: 13px; color: var(--color-text-secondary); line-height: 1.55; }
+
+  .days-grid { display: flex; flex-direction: column; gap: 8px; }
+
+  .day-card {
+    background: var(--color-surface);
+    border: 0.5px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: border-color 0.15s;
+  }
+  .day-card:hover { border-color: var(--color-border-md); }
+  .day-card.expanded { border-color: var(--purple-200); }
+
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .day-num {
+    font-size: 11px;
+    font-weight: 500;
+    min-width: 44px;
+    color: var(--color-text-hint);
+  }
+  .day-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); flex: 1; }
+  .day-tag {
+    font-size: 11px;
+    padding: 2px 9px;
+    border-radius: 20px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .day-chevron {
+    font-size: 10px;
+    color: var(--color-text-hint);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .day-card.expanded .day-chevron { transform: rotate(180deg); }
+
+  .day-body {
+    display: none;
+    padding: 0 18px 18px;
+    border-top: 0.5px solid var(--color-border);
+    margin-top: 0;
+  }
+  .day-card.expanded .day-body { display: block; padding-top: 14px; }
+
+  .task-list { list-style: none; margin-bottom: 14px; }
+  .task-list li {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    line-height: 1.65;
+    padding: 3px 0 3px 18px;
+    position: relative;
+  }
+  .task-list li::before {
+    content: "–";
+    position: absolute;
+    left: 0;
+    color: var(--color-text-hint);
+  }
+
+  .deliverable {
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+    background: var(--purple-50);
+    border-left: 2px solid var(--purple-400);
+  }
+  .deliverable-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--purple-600);
+    margin-bottom: 3px;
+  }
+  .deliverable-text { font-size: 13px; color: var(--purple-800); }
+
+  @media (max-width: 500px) {
+    .header-title { font-size: 28px; }
+    .phase-tabs { gap: 4px; }
+    .tab { font-size: 11px; padding: 6px 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+  <div class="header">
+    <div class="header-eyebrow">Aggressive levelling plan</div>
+    <div class="header-title">30 Days to Renowned<br>Product Leader</div>
+    <div class="header-subtitle">Modelled on Marily Nika's trajectory — AI depth, public teaching, visible work, and consistent influence building.</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-num">30</div><div class="stat-label">Days</div></div>
+    <div class="stat"><div class="stat-num">4</div><div class="stat-label">Phases</div></div>
+    <div class="stat"><div class="stat-num">30+</div><div class="stat-label">Deliverables</div></div>
+  </div>
+
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:25%"></div></div>
+
+  <div class="phase-tabs">
+    <div class="tab active" onclick="switchPhase(0)">Phase 1 — Days 1–7</div>
+    <div class="tab" onclick="switchPhase(1)">Phase 2 — Days 8–14</div>
+    <div class="tab" onclick="switchPhase(2)">Phase 3 — Days 15–22</div>
+    <div class="tab" onclick="switchPhase(3)">Phase 4 — Days 23–30</div>
+  </div>
+
+  <div id="phaseContent"></div>
+</div>
+
+<script>
+const phases = [
+  {
+    title: "Foundation & technical depth",
+    subtitle: "Build the bedrock Marily built over years — AI/ML literacy, product frameworks, and a point of view on what great looks like.",
+    badgeText: "Days 1–7 · Sharpen the fundamentals",
+    badgeBg: "#EEEDFE", badgeColor: "#3C3489",
+    days: [
+      { num: "Day 1", title: "Audit yourself ruthlessly", tag: "Self-assessment", tagBg: "#EEEDFE", tagColor: "#534AB7",
+        tasks: ["Write a brutal honest 1-pager: your gaps vs Marily's profile (AI depth, influence, leadership brand, speaking, writing)","Map out the 3 skills that, if closed, move the needle most in 30 days","Set up a daily 90-min deep work block — non-negotiable"],
+        deliverable: "Gap analysis doc + your 30-day north star metric" },
+      { num: "Day 2", title: "Get AI-literate at a PM-relevant depth", tag: "AI/ML", tagBg: "#E1F5EE", tagColor: "#0F6E56",
+        tasks: ["Read Marily's Substack back-catalogue (marily.substack.com) — take structured notes","Study how LLMs work: tokens, embeddings, fine-tuning, RAG — at the level you can explain to an exec","Watch her TED AI talk and 3 YouTube videos — note her framing, vocabulary, structure"],
+        deliverable: "1-page AI explainer written in your own words" },
+      { num: "Day 3", title: "Master the AI product development lifecycle", tag: "AI/ML", tagBg: "#E1F5EE", tagColor: "#0F6E56",
+        tasks: ["Study: data collection → model training → evaluation → deployment → monitoring loop","Understand failure modes: hallucinations, brittleness, cost blowups, model drift","Map a product you work on or know well onto this lifecycle"],
+        deliverable: "AI product lifecycle diagram + annotated product example" },
+      { num: "Day 4", title: "Product strategy frameworks", tag: "Strategy", tagBg: "#FAECE7", tagColor: "#993C1D",
+        tasks: ["Study Jobs-to-be-Done, opportunity sizing, and Marily's approach to prioritisation without 'building traps'","Read Marty Cagan's INSPIRED — focus on chapters on product discovery and outcome vs output","Draft a product strategy for a real or hypothetical AI product in your domain"],
+        deliverable: "1-page product strategy (problem, opportunity, bets, metrics)" },
+      { num: "Day 5", title: "Learn to write a world-class PRD", tag: "Craft", tagBg: "#FAEEDA", tagColor: "#854F0B",
+        tasks: ["Study 3 public PRD templates and tear apart what makes them good or weak","Write a full PRD for an AI feature — include model selection rationale, success metrics, failure modes","Get one peer or mentor to review it and give brutal feedback"],
+        deliverable: "Full PRD for an AI feature" },
+      { num: "Day 6", title: "Build technical credibility with engineers", tag: "Technical", tagBg: "#E6F1FB", tagColor: "#185FA5",
+        tasks: ["Shadow or interview an ML engineer or data scientist for 1 hour — understand their pain points","Learn to read a model evaluation card and interpret benchmark results","Practice explaining a technical constraint in business terms and vice versa"],
+        deliverable: "Written summary of what your eng counterpart cares about most" },
+      { num: "Day 7", title: "Week 1 review + public commitment", tag: "Accountability", tagBg: "#F1EFE8", tagColor: "#444441",
+        tasks: ["Review everything you've produced this week — what's publication-worthy?","Post your first LinkedIn article: 'What I learned about AI product management this week' — real, specific, honest","Set up your newsletter or Substack — one issue, even if 200 words, goes out by EOD"],
+        deliverable: "Published LinkedIn post + newsletter issue #1" }
+    ]
+  },
+  {
+    title: "Build in public & create your portfolio",
+    subtitle: "Marily built influence by shipping real things and teaching publicly. Your job this week is to create tangible proof of your thinking.",
+    badgeText: "Days 8–14 · Make things, share things",
+    badgeBg: "#E1F5EE", badgeColor: "#085041",
+    days: [
+      { num: "Day 8", title: "Ship a real AI prototype", tag: "Builder", tagBg: "#E1F5EE", tagColor: "#0F6E56",
+        tasks: ["Use a no-code/low-code AI tool (Cursor, Bolt, v0, Replit) to build and deploy something small","It doesn't need to be perfect — it needs to be real and yours","Document what you built, why, and what you'd do differently"],
+        deliverable: "Deployed AI mini-product + write-up" },
+      { num: "Day 9", title: "Develop your AI product thesis", tag: "Strategy", tagBg: "#FAECE7", tagColor: "#993C1D",
+        tasks: ["Pick one domain (health, fintech, productivity, etc.) and develop a 3-point thesis on how AI will reshape it","Back every claim with data or first-principles reasoning","Find 3 people who would disagree — steelman their position"],
+        deliverable: "500-word thesis published on LinkedIn or Substack" },
+      { num: "Day 10", title: "Master stakeholder communication", tag: "Leadership", tagBg: "#EEEDFE", tagColor: "#534AB7",
+        tasks: ["Study how to communicate AI trade-offs to non-technical executives","Practise explaining 'why we should not ship this AI feature yet' in under 2 minutes","Write a mock exec update for a product you're familiar with"],
+        deliverable: "Exec update doc (1 page, no jargon)" },
+      { num: "Day 11", title: "Conduct and publish user research", tag: "Craft", tagBg: "#FAEEDA", tagColor: "#854F0B",
+        tasks: ["Interview 5 people about a problem related to your AI product thesis","Synthesise findings into a jobs-to-be-done map","Write up and share your research publicly — even raw insights are valuable"],
+        deliverable: "User research synthesis (public post or doc)" },
+      { num: "Day 12", title: "Study how great AI products fail", tag: "AI/ML", tagBg: "#E1F5EE", tagColor: "#0F6E56",
+        tasks: ["Deep-dive 3 high-profile AI product failures (Humane Pin, early Bing Chat controversies, etc.)","For each: identify the root cause — product, model, GTM, or all three","Write a framework for how you would have caught these issues in discovery"],
+        deliverable: "Published teardown of one AI product failure" },
+      { num: "Day 13", title: "Build your speaker's perspective", tag: "Influence", tagBg: "#FBEAF0", tagColor: "#993556",
+        tasks: ["Pick one insight from the past 12 days and develop it into a 5-minute talk","Record yourself delivering it — watch it back, fix the weakest 30 seconds","Submit to one local meetup, podcast, or conference CFP"],
+        deliverable: "Recorded 5-minute talk + one CFP submitted" },
+      { num: "Day 14", title: "Week 2 review + portfolio update", tag: "Accountability", tagBg: "#F1EFE8", tagColor: "#444441",
+        tasks: ["Compile everything you've built into a lightweight portfolio page (Notion, personal site, or even a LinkedIn featured section)","Share it with 3 senior people in your network and ask for specific feedback","Newsletter issue #2 goes out — recap of your biggest insight this week"],
+        deliverable: "Portfolio page live + newsletter issue #2" }
+    ]
+  },
+  {
+    title: "Lead, influence & grow your network",
+    subtitle: "Marily didn't just know things — she taught them, which multiplied her authority. This week you start operating like a thought leader.",
+    badgeText: "Days 15–22 · Amplify your signal",
+    badgeBg: "#FAECE7", badgeColor: "#712B13",
+    days: [
+      { num: "Day 15", title: "Identify and reach your target audience", tag: "Influence", tagBg: "#FBEAF0", tagColor: "#993556",
+        tasks: ["Define who you are trying to reach: aspiring PMs, fellow leaders, execs, founders?","Study the top 5 AI product voices on LinkedIn — what do they do that works?","Comment substantively (5+ sentences, real insight) on 3 posts every day this week"],
+        deliverable: "Audience definition doc + daily commenting habit starts" },
+      { num: "Day 16", title: "Develop your signature framework", tag: "Strategy", tagBg: "#FAECE7", tagColor: "#993C1D",
+        tasks: ["Every great product leader has one memorable framework. Develop yours.","It should be: simple (3-4 components), original (not just a renamed 2x2), and actionable","Test it by explaining it to someone outside product — does it land?"],
+        deliverable: "Your named framework, visualised and explained in 300 words" },
+      { num: "Day 17", title: "Give a talk or run a workshop", tag: "Speaking", tagBg: "#E6F1FB", tagColor: "#185FA5",
+        tasks: ["Deliver your 5-minute talk to a real audience — even 10 people in a team meeting counts","Gather feedback: what was clearest? What was confusing? What did they want more of?","Iterate and expand to a 20-minute version"],
+        deliverable: "Live talk delivered + feedback collected" },
+      { num: "Day 18", title: "Network with intentionality", tag: "Leadership", tagBg: "#EEEDFE", tagColor: "#534AB7",
+        tasks: ["Reach out to 5 people you genuinely admire — not to ask for anything, just to share something useful","Attend one product/AI event (virtual or in-person) in London this week","Have one deep conversation with a PM or leader at a company you respect"],
+        deliverable: "5 outreach messages sent + 1 event attended" },
+      { num: "Day 19", title: "Teach what you know", tag: "Influence", tagBg: "#FBEAF0", tagColor: "#993556",
+        tasks: ["Create a mini-lesson: a 10-slide deck, a Twitter/LinkedIn thread, or a short YouTube video","Topic: one thing you now understand about AI product management that most PMs don't","Publish it. Engage with every comment for 24 hours."],
+        deliverable: "Published teaching piece with active engagement" },
+      { num: "Day 20", title: "Get uncomfortable — pitch something bold", tag: "Leadership", tagBg: "#EEEDFE", tagColor: "#534AB7",
+        tasks: ["Identify a product initiative at your company or a hypothetical — pitch it to someone senior","The pitch must include: user insight, AI opportunity, risk mitigation, and a bold metric","Take the feedback and rewrite the pitch the same day"],
+        deliverable: "Bold pitch delivered + revised version" },
+      { num: "Day 21", title: "Sharpen your AI ethics POV", tag: "Strategy", tagBg: "#FAECE7", tagColor: "#993C1D",
+        tasks: ["Read the EU AI Act summary and Anthropic's responsible scaling policy","Develop your own 3-principle framework for ethical AI product decisions","Write a short post: 'How I think about AI ethics as a product leader'"],
+        deliverable: "Your AI ethics framework + published post" },
+      { num: "Day 22", title: "Week 3 review + newsletter issue #3", tag: "Accountability", tagBg: "#F1EFE8", tagColor: "#444441",
+        tasks: ["Review your content performance — what got the most engagement? Why?","Update your portfolio with everything from this week","Newsletter issue #3: your signature framework, explained for your audience"],
+        deliverable: "Portfolio updated + newsletter issue #3" }
+    ]
+  },
+  {
+    title: "Cement your reputation & plan beyond day 30",
+    subtitle: "Marily's brand is built on consistency over years. This final phase is about consolidating your gains and setting up the next 90 days.",
+    badgeText: "Days 23–30 · Become the person, not just the plan",
+    badgeBg: "#EAF3DE", badgeColor: "#27500A",
+    days: [
+      { num: "Day 23", title: "Do a real product review", tag: "Craft", tagBg: "#FAEEDA", tagColor: "#854F0B",
+        tasks: ["Pick any live AI product and do a full teardown: UX, model behaviour, failure modes, metrics they likely track","Write it up at publication quality — 800+ words with real insights","Pitch it to a product publication (Lenny's Newsletter community, Product Coalition, UX Collective)"],
+        deliverable: "Product teardown submitted for publication" },
+      { num: "Day 24", title: "Get certified or complete a structured course", tag: "Credibility", tagBg: "#E6F1FB", tagColor: "#185FA5",
+        tasks: ["Enrol in Marily's AI PM Bootcamp or Certification on Maven — this is research AND credibility","Alternatively: complete DeepLearning.AI's 'AI for Everyone' or a relevant O'Reilly course","Add the certification to your LinkedIn and profile it in your newsletter"],
+        deliverable: "Certification enrolled or completed + LinkedIn updated" },
+      { num: "Day 25", title: "Build your advisory or mentorship flywheel", tag: "Leadership", tagBg: "#EEEDFE", tagColor: "#534AB7",
+        tasks: ["Identify 2 people you could mentor — offer them a free 30-min session","Reach out to 2 senior leaders to ask for a mentorship relationship (one ask per message, be specific)","Write down what you want from each relationship — do not go in empty-handed"],
+        deliverable: "2 mentorship sessions booked (giving) + 2 requests sent (seeking)" },
+      { num: "Day 26", title: "Refine your personal brand positioning", tag: "Influence", tagBg: "#FBEAF0", tagColor: "#993556",
+        tasks: ["Rewrite your LinkedIn headline, about section, and featured section based on the last 25 days","You should now have proof points: things you've built, published, and taught","Ask 3 people: 'What would you say I'm uniquely known for?' and update accordingly"],
+        deliverable: "Fully updated LinkedIn profile + positioning statement" },
+      { num: "Day 27", title: "Record a longer-form piece of content", tag: "Speaking", tagBg: "#E6F1FB", tagColor: "#185FA5",
+        tasks: ["Record a 15–20 minute YouTube video, podcast episode, or narrated slide deck","Topic: your signature framework or your AI product thesis","Edit it, publish it, share it in 3 communities you belong to"],
+        deliverable: "Published long-form content (video, podcast, or narrated deck)" },
+      { num: "Day 28", title: "Get feedback from someone you respect", tag: "Accountability", tagBg: "#F1EFE8", tagColor: "#444441",
+        tasks: ["Share your portfolio, your framework, and your best piece of writing with one person at Marily's level or above","This can be a cold DM — lead with your work, not your ambition","Process their feedback without being defensive. Rewrite one piece based on it."],
+        deliverable: "Senior feedback received + one piece revised" },
+      { num: "Day 29", title: "Define your 90-day plan", tag: "Strategy", tagBg: "#FAECE7", tagColor: "#993C1D",
+        tasks: ["What does 'renowned product leader' look like for you specifically, in 90 more days?","Set 3 concrete outcomes: one career/role milestone, one audience/influence milestone, one skill milestone","Write the narrative: 'Here's where I was on Day 1 and here's what I've built'"],
+        deliverable: "90-day plan doc + origin-to-now narrative" },
+      { num: "Day 30", title: "Publish your 30-day retrospective", tag: "Accountability", tagBg: "#F1EFE8", tagColor: "#444441",
+        tasks: ["Write a public, honest retrospective: what you set out to do, what you actually did, what you learned","Include the real outputs: portfolio, articles, prototype, talk, newsletter","This post is your proof-of-work to the world — it should make people want to follow your next 30 days"],
+        deliverable: "30-day retrospective published — your most important piece yet" }
+    ]
+  }
+];
+
+let currentPhase = 0;
+let expandedDays = new Set();
+
+function switchPhase(idx) {
+  currentPhase = idx;
+  expandedDays.clear();
+  document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', i === idx));
+  const fills = [25, 50, 75, 100];
+  document.getElementById('progressFill').style.width = fills[idx] + '%';
+  renderPhase();
+}
+
+function toggleDay(idx) {
+  if (expandedDays.has(idx)) expandedDays.delete(idx);
+  else expandedDays.add(idx);
+  renderPhase();
+}
+
+function renderPhase() {
+  const p = phases[currentPhase];
+  let html = `
+    <div class="phase-header">
+      <div class="phase-badge" style="background:${p.badgeBg};color:${p.badgeColor};">${p.badgeText}</div>
+      <div class="phase-title">${p.title}</div>
+      <div class="phase-subtitle">${p.subtitle}</div>
+    </div>
+    <div class="days-grid">
+  `;
+  p.days.forEach((day, i) => {
+    const expanded = expandedDays.has(i);
+    html += `
+      <div class="day-card ${expanded ? 'expanded' : ''}" >
+        <div class="day-header" onclick="toggleDay(${i})">
+          <span class="day-num">${day.num}</span>
+          <span class="day-title">${day.title}</span>
+          <span class="day-tag" style="background:${day.tagBg};color:${day.tagColor};">${day.tag}</span>
+          <span class="day-chevron">▼</span>
+        </div>
+        ${expanded ? `
+        <div class="day-body">
+          <ul class="task-list">
+            ${day.tasks.map(t => `<li>${t}</li>`).join('')}
+          </ul>
+          <div class="deliverable">
+            <div class="deliverable-label">Today's deliverable</div>
+            <div class="deliverable-text">${day.deliverable}</div>
+          </div>
+        </div>` : ''}
+      </div>
+    `;
+  });
+  html += '</div>';
+  document.getElementById('phaseContent').innerHTML = html;
+}
+
+renderPhase();
+</script>
+</body>
+</html>
